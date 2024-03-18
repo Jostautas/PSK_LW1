@@ -27,12 +27,8 @@ public class Book {
     @Column(name = "NAME")
     private String name;
 
-    @ManyToMany(mappedBy = "books")
+    @ManyToMany(mappedBy = "books", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Author> authors = new ArrayList<>();
-
-    @Version
-    @Column(name = "OPT_LOCK_VERSION")
-    private Integer version;
 
     @Override
     public boolean equals(Object o) {

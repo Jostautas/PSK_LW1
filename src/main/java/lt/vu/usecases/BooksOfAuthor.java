@@ -33,13 +33,16 @@ public class BooksOfAuthor implements Serializable {
     public void init() {
         Map<String, String> requestParameters =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        if (requestParameters.isEmpty()){
+            return;
+        }
         Integer authorId = Integer.parseInt(requestParameters.get("authorId"));
         this.author = authorDAO.findOne(authorId);
     }
 
     @Transactional
     @LoggedInvocation
-    public void createBook(String bookName) {
+    public void createBook() {
         Book tempBook = booksDAO.findOneByName(bookToCreate.getName());
         if (tempBook == null){
             booksDAO.persist(bookToCreate);

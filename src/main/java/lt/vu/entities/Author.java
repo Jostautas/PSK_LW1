@@ -28,7 +28,7 @@ public class Author {
     @Column(name = "NAME")
     private String name;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name="AUTHOR_BOOK")
     private List<Book> books = new ArrayList<>();
 
@@ -38,10 +38,6 @@ public class Author {
 
     @OneToMany(mappedBy = "author")
     private List<Contact> contacts;
-
-    @Version
-    @Column(name = "OPT_LOCK_VERSION")
-    private Integer version;
 
     @Override
     public boolean equals(Object o) {

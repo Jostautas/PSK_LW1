@@ -10,11 +10,7 @@
     <h2>Author #{booksOfAuthor.author.name} wrote:</h2>
     <ol>
         <ui:repeat value="#{booksOfAuthor.author.books}" var="book">
-            <div>
-                <h:link value="#{book.name}" outcome="/book.xhtml">
-                    <f:param name="bookId" value="#{book.id}" />
-                </h:link>
-            </div>
+            <div>#{book.name}</div>
         </ui:repeat>
     </ol>
     <h:form>
