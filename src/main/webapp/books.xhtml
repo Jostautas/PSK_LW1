@@ -8,11 +8,16 @@
 <h:head/>
 <h:body>
     <h2>Author #{booksOfAuthor.author.name} wrote:</h2>
-    <ol>
-        <ui:repeat value="#{booksOfAuthor.author.books}" var="book">
+    <h:dataTable value="#{booksOfAuthor.author.books}" var="book" border="1">
+        <h:column>
             <div>#{book.name}</div>
-        </ui:repeat>
-    </ol>
+        </h:column>
+    </h:dataTable>
+<!--    <ol>-->
+<!--        <ui:repeat value="#{booksOfAuthor.author.books}" var="book">-->
+<!--            <div>#{book.name}</div>-->
+<!--        </ui:repeat>-->
+<!--    </ol>-->
     <h:form>
         <h:inputText a:placeholder="name" value="#{booksOfAuthor.bookToCreate.name}" required="true" />
         <h:commandButton value="Add book to author"

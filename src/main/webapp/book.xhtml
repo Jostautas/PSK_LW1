@@ -12,16 +12,22 @@
     <h:form>
         <h2>Add a New Book to an Author</h2>
         <h:inputText value="#{booksOfAuthor.bookToCreate.name}" required="true" placeholder="Book Name" />
-        <h:panelGrid columns="2">
-            <h:outputText value="Author" />
-            <h:outputText value="Action" />
-            <ui:repeat value="#{authors.allAuthors}" var="author">
-                <h:outputText value="#{author.name}" />
+        <h:dataTable value="#{authors.allAuthors}" var="author" style="border-collapse: collapse; width: 100%;" border="1">
+            <h:column>
+                <f:facet name="header">
+                    Author
+                </f:facet>
+                #{author.name}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Action
+                </f:facet>
                 <h:commandButton value="Add to This Author" action="#{booksOfAuthor.createBook}">
                     <f:param name="authorId" value="#{author.id}" />
                 </h:commandButton>
-            </ui:repeat>
-        </h:panelGrid>
+            </h:column>
+        </h:dataTable>
     </h:form>
     <div>
         <h:link outcome="index" value="Back to author page"/>

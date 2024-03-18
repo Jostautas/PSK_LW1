@@ -8,11 +8,16 @@
 <h:head/>
 <h:body>
     <h2>Author #{contacts.author.name} contacts:</h2>
-    <ol>
-        <ui:repeat value="#{contacts.author.contacts}" var="contact">
+    <h:dataTable value="#{contacts.author.contacts}" var="contact" border="1">
+        <h:column>
             <div>#{contact.contactInfo}</div>
-        </ui:repeat>
-    </ol>
+        </h:column>
+    </h:dataTable>
+<!--    <ol>-->
+<!--        <ui:repeat value="#{contacts.author.contacts}" var="contact">-->
+<!--            <div>#{contact.contactInfo}</div>-->
+<!--        </ui:repeat>-->
+<!--    </ol>-->
     <h:form>
         <h:inputText a:placeholder="contact" value="#{contacts.contactToCreate.contactInfo}" required="true" />
         <h:commandButton value="Add new contact info"
