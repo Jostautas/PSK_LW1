@@ -36,6 +36,10 @@ public class Author {
         books.add(book);
     }
 
+    public boolean hasBookWithTitle(String title) {
+        return books.stream().anyMatch(book -> book.getName().equals(title));
+    }
+
     @OneToMany(mappedBy = "author")
     private List<Contact> contacts;
 

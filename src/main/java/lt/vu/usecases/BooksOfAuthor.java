@@ -10,6 +10,7 @@ import lt.vu.persistence.BooksDAO;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -43,6 +44,10 @@ public class BooksOfAuthor implements Serializable {
     @Transactional
     @LoggedInvocation
     public void createBook() {
+        if (author.hasBookWithTitle(bookToCreate.getName())) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: book already exists", "A book with this title already exists for this author."));
+            return;
+        }
         Book tempBook = booksDAO.findOneByName(bookToCreate.getName());
         if (tempBook == null){
             booksDAO.persist(bookToCreate);
