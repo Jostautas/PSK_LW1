@@ -5,8 +5,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,14 +16,15 @@ import java.util.Objects;
 public class Contact {
     public Contact(){
     }
+    public enum contactCategory{ email, phone, country }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(max = 50)
-    @Column(name = "ContactDescription")
-    private String contactDescription;
+    @Column(name = "ContactCategory")
+    @Enumerated(EnumType.STRING)
+    private contactCategory contactCategory;
 
     @Size(max = 50)
     @Column(name = "ContactInfo")

@@ -18,6 +18,9 @@ import java.util.Map;
 
 @Model
 public class Contacts implements Serializable {
+    public Contact.contactCategory[] getCategories(){
+        return Contact.contactCategory.values();
+    }
     @Inject
     private ContactDAO contactDAO;
     @Inject

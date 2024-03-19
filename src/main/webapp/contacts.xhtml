@@ -12,6 +12,9 @@
         <h:column>
             <div>#{contact.contactInfo}</div>
         </h:column>
+        <h:column>
+            <div>#{contact.contactCategory}</div>
+        </h:column>
     </h:dataTable>
 <!--    <ol>-->
 <!--        <ui:repeat value="#{contacts.author.contacts}" var="contact">-->
@@ -20,6 +23,9 @@
 <!--    </ol>-->
     <h:form>
         <h:inputText a:placeholder="contact" value="#{contacts.contactToCreate.contactInfo}" required="true" />
+        <h:selectOneMenu value="#{contacts.contactToCreate.contactCategory}" >
+            <f:selectItems value="#{contacts.categories}" />
+        </h:selectOneMenu>
         <h:commandButton value="Add new contact info"
                          actionListener="#{contacts.createContact}"
                          action="#{'contacts?faces-redirect=true&amp;authorId='.concat(contacts.author.id)}">
