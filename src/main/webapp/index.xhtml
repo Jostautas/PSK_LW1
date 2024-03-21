@@ -14,6 +14,16 @@
             </f:facet>
             <h:link value="#{author.name}" outcome="books?authorId=#{author.id}" />
         </h:column>
+        <h:column>
+            <f:facet name="header">Book Count</f:facet>
+            #{author.books.size()}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                Co-Authors
+            </f:facet>
+            #{authors.findCoAuthors(author)}
+        </h:column>
     </h:dataTable>
     <h:form>
         <h:inputText value="#{authors.authorToCreate.name}" required="true" />
@@ -22,28 +32,8 @@
     <div>
         <h:link outcome="book"  value="Add book to multiple authors"/>
     </div>
+    <div>
+        <h:link outcome="mybatis"  value="see all authors with mybatis"/>
+    </div>
 </h:body>
 </html>
-
-<!--<!DOCTYPE html>-->
-
-<!--<html xmlns="http://www.w3.org/1999/xhtml"-->
-<!--      xmlns:h="http://xmlns.jcp.org/jsf/html"-->
-<!--      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"-->
-<!--&gt;-->
-<!--<h:head/>-->
-<!--<h:body>-->
-<!--    <h2>Teams:</h2>-->
-<!--    <ol>-->
-<!--        <ui:repeat value="#{teams.allTeams}" var="team">-->
-<!--            <li><h:link value="#{team.name}" outcome="players?teamId=#{team.id}" /></li>-->
-<!--        </ui:repeat>-->
-<!--    </ol>-->
-<!--    <h:form>-->
-<!--        <h:inputText value="#{teams.teamToCreate.name}" required="true" />-->
-<!--        <h:commandButton value="Add new team" actionListener="#{teams.createTeam}" action="index?faces-redirect=true"/>-->
-<!--    </h:form>-->
-<!--    <h:link outcome="myBatis/teams" value="MyBatis implementation"/>-->
-<!--</h:body>-->
-<!--</html>-->
-
