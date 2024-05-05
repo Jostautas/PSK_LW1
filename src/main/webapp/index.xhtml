@@ -32,5 +32,14 @@
     <div>
         <h:link outcome="book"  value="Add book to multiple authors"/>
     </div>
+    <h:form>
+        <h:commandButton value="Start Long Calculation" action="#{calculationContainer.startCalculation}">
+            <f:ajax execute="@form" render="statusWrapper" />
+        </h:commandButton>
+        <h:panelGroup id="statusWrapper">
+            <h:outputText id="outputStatus" value="#{calculationContainer.isCalculationDone ? 'Calculation complete. ' : 'Calculation in progress...'}" />
+            <h:outputText id="outputResult" rendered="#{calculationContainer.isCalculationDone}" value="#{calculationContainer.taskResult}" />
+        </h:panelGroup>
+    </h:form>
 </h:body>
 </html>
