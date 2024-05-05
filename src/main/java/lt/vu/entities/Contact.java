@@ -22,6 +22,10 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Version
+    @Column(name = "OPT_LOCK_VERSION")
+    private Integer version;
+
     @Column(name = "ContactCategory")
     @Enumerated(EnumType.STRING)
     private contactCategory contactCategory;

@@ -25,6 +25,8 @@ public class AuthorDAO {
         this.em.persist(author);
     }
 
+    public void update(Author author){ this.em.merge(author); }
+
     public Author findOne(Integer id) {
         return em.find(Author.class, id);
     }

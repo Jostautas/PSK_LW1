@@ -23,6 +23,10 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Version
+    @Column(name = "OPT_LOCK_VERSION")
+    private Integer version;
+
     @Size(max = 50)
     @Column(name = "NAME")
     private String name;

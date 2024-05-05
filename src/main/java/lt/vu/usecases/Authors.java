@@ -40,18 +40,6 @@ public class Authors {
         this.allAuthors = authorsDAO.loadAll();
     }
 
-//    public String findCoAuthors(Author author) {
-//        StringBuilder coAuthors = new StringBuilder();
-//        for (Book book : author.getBooks()) {
-//            for (Author coAuthor : book.getAuthors()) {
-//                if (!coAuthor.equals(author)) {
-//                    if (coAuthors.length() > 0) coAuthors.append(", ");
-//                    coAuthors.append(coAuthor.getName());
-//                }
-//            }
-//        }
-//        return coAuthors.toString();
-//    }
     public String findCoAuthors(Author author) {
         Set<String> coAuthorNames = new HashSet<>();
         for (Book book : author.getBooks()) {

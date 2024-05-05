@@ -15,7 +15,10 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import javax.persistence.OptimisticLockException;
 
 @Model
 public class BooksOfAuthor implements Serializable {
@@ -44,15 +47,25 @@ public class BooksOfAuthor implements Serializable {
     @Transactional
     @LoggedInvocation
     public void createBook() {
-        if (author.hasBookWithTitle(bookToCreate.getName())) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: book already exists", "A book with this title already exists for this author."));
-            return;
+        try{
+            Thread.sleep(5000);
+            if (author.hasBookWithTitle(bookToCreate.getName())) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: book already exists", "A book with this title already exists for this author."));
+                return;
+            }
+            author.setName("changedAuthor");
+            authorDAO.update(author);
+            Book tempBook = booksDAO.findOneByName(bookToCreate.getName());
+            if (tempBook == null){
+                booksDAO.persist(bookToCreate);
+                tempBook = bookToCreate;
+            }
+            author.createBook(tempBook);
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
+        } catch (OptimisticLockException ole) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Update Conflict", "This data has been modified by another user. Please refresh and try again."));
         }
-        Book tempBook = booksDAO.findOneByName(bookToCreate.getName());
-        if (tempBook == null){
-            booksDAO.persist(bookToCreate);
-            tempBook = bookToCreate;
-        }
-        author.createBook(tempBook);
+
     }
 }
