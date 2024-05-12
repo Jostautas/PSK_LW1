@@ -37,7 +37,7 @@
             <f:ajax execute="@form" render="statusWrapper" />
         </h:commandButton>
         <h:panelGroup id="statusWrapper">
-            <h:outputText id="outputStatus" value="#{calculationContainer.isCalculationDone ? 'Calculation complete. ' : 'Calculation in progress...'}" />
+            <h:outputText id="outputStatus" value="#{calculationContainer.isCalculationDone ? 'Calculation complete. ' : 'Waiting for calculation results...'}" />
             <h:outputText id="outputResult" rendered="#{calculationContainer.isCalculationDone}" value="#{calculationContainer.taskResult}" />
         </h:panelGroup>
     </h:form>

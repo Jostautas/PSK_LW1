@@ -47,24 +47,30 @@ public class BooksOfAuthor implements Serializable {
     @Transactional
     @LoggedInvocation
     public void createBook() {
+        FacesContext context = FacesContext.getCurrentInstance();
         try{
-            Thread.sleep(5000);
+            Thread.sleep(3000);
             if (author.hasBookWithTitle(bookToCreate.getName())) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: book already exists", "A book with this title already exists for this author."));
+                context.getExternalContext().getFlash().put("message", "Error: book already exists");
                 return;
             }
-            author.setName("changedAuthor");
-            authorDAO.update(author);
             Book tempBook = booksDAO.findOneByName(bookToCreate.getName());
             if (tempBook == null){
                 booksDAO.persist(bookToCreate);
                 tempBook = bookToCreate;
             }
+            else{ // OptimisticLockException handling: (comment this block to get stack trace)
+                context.getExternalContext().getFlash().put("message", "OptimisticLockException");
+                return;
+            }
             author.createBook(tempBook);
         } catch (InterruptedException ie) {
+            context.getExternalContext().getFlash().put("message", "InterruptedException");
             Thread.currentThread().interrupt();
         } catch (OptimisticLockException ole) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Update Conflict", "This data has been modified by another user. Please refresh and try again."));
+            context.getExternalContext().getFlash().put("message", "OptimisticLockException");
+        } catch (Exception e){
+            context.getExternalContext().getFlash().put("message", "Exception: " + e.getMessage());
         }
 
     }

@@ -19,7 +19,11 @@ public class BooksDAO {
     }
 
     public void persist(Book book){
-        this.em.persist(book);
+        try {
+            this.em.persist(book);
+        } catch (Exception e) {
+            System.out.println("--------------EXCEPTION IN BOOKSDAO--------------");
+        }
     }
 
     public Book findOne(Integer id){

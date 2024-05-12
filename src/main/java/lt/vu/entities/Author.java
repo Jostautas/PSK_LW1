@@ -37,7 +37,11 @@ public class Author {
     private List<Book> books = new ArrayList<>();
 
     public void createBook(Book book){
-        books.add(book);
+        try{
+            books.add(book);
+        } catch (Exception e) {
+            System.out.println("--------------EXCEPTION IN AUTHOR--------------");
+        }
     }
 
     public boolean hasBookWithTitle(String title) {

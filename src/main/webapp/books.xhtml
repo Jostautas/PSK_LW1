@@ -4,7 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head/>
 <h:body>
     <h2>Author #{booksOfAuthor.author.name} wrote:</h2>
@@ -13,11 +13,6 @@
             <div>#{book.name}</div>
         </h:column>
     </h:dataTable>
-<!--    <ol>-->
-<!--        <ui:repeat value="#{booksOfAuthor.author.books}" var="book">-->
-<!--            <div>#{book.name}</div>-->
-<!--        </ui:repeat>-->
-<!--    </ol>-->
     <h:form>
         <h:inputText a:placeholder="name" value="#{booksOfAuthor.bookToCreate.name}" required="true" />
         <h:commandButton value="Add book to author"
@@ -25,6 +20,7 @@
                          action="#{'books?faces-redirect=true&amp;authorId='.concat(booksOfAuthor.author.id)}">
                 <f:param name="authorId" value="#{booksOfAuthor.author.id}" />
         </h:commandButton>
+        <h:outputText value="#{flash['message']}" rendered="#{not empty flash['message']}" style="color:red"/>
     </h:form>
     <div>
         <h:link outcome="index" value="Back to author page"/>
@@ -32,5 +28,6 @@
     <div>
         <h:link outcome="contacts?authorId=#{booksOfAuthor.author.id}"  value="To author's contacts"/>
     </div>
+
 </h:body>
 </html>
