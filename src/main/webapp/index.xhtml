@@ -51,6 +51,11 @@
         <button type="button" onclick="getAuthor()">Get existing author</button>
         <div id="authorNameDisplay"></div>
     </h:form>
+    <h:form>
+        <h:inputText styleClass="authorIdUpdate" value="#{authors.authorToUpdate.id}" required="true" placeholder="Author ID"/>
+        <h:inputText styleClass="authorNameUpdate" value="#{authors.authorToUpdate.name}" required="true" placeholder="New Author Name"/>
+        <button type="button" onclick="updateAuthor()">Update Author</button>
+    </h:form>
 
 
 </h:body>
@@ -82,13 +87,28 @@
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                return response.text();  // Resolve the Promise to get the text
+                return response.text();
             })
             .then(data => {
                 console.log('Author Name:', data);
                 document.getElementById('authorNameDisplay').textContent = data;
             })
             .catch(error => console.error('Error fetching author:', error));
+    }
+
+    function updateAuthor() {
+        var authorId = document.querySelector('.authorIdUpdate').value;
+        var newName = document.querySelector('.authorNameUpdate').value;
+        fetch('/java-ee-practice/api/authors/' + authorId, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name: newName})
+        })
+            .then(response => {
+                console.log(response);
+            })
     }
 </script>
 </html>

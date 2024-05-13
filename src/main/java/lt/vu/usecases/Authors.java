@@ -23,6 +23,9 @@ public class Authors {
     @Getter @Setter
     private Author authorToCreate = new Author();
 
+    @Getter @Setter
+    private Author authorToUpdate = new Author();
+
     @Getter
     private List<Author> allAuthors;
 
