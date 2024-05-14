@@ -1,23 +1,18 @@
 package lt.vu.async;
 
-import javax.ejb.Asynchronous;
-import javax.ejb.Stateless;
-import java.util.concurrent.Future;
-import javax.ejb.AsyncResult;
+import javax.enterprise.context.ApplicationScoped;
 
-@Stateless
+@ApplicationScoped
 public class CalculationService {
 
-    @Asynchronous
-    public Future<String> performLongCalculation() {
+    public String performLongCalculation2() {
         try {
-            Thread.sleep(1000);
-            System.out.println("Long task completed.");
-            return new AsyncResult<>("Success");
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
-            System.out.println("Long task interrupted.");
-            Thread.currentThread().interrupt();
-            return new AsyncResult<>("InterruptedException");
+            throw new RuntimeException(e);
         }
+        System.out.println("Success.");
+        return "Success";
     }
+
 }

@@ -59,10 +59,10 @@ public class BooksOfAuthor implements Serializable {
                 booksDAO.persist(bookToCreate);
                 tempBook = bookToCreate;
             }
-            else{ // OptimisticLockException handling: (comment this block to get stack trace)
-                context.getExternalContext().getFlash().put("message", "OptimisticLockException");
-                return;
-            }
+//            else{ // OptimisticLockException handling: (comment this block to get stack trace)
+//                context.getExternalContext().getFlash().put("message", "OptimisticLockException");
+//                return;
+//            }
             author.createBook(tempBook);
         } catch (InterruptedException ie) {
             context.getExternalContext().getFlash().put("message", "InterruptedException");
